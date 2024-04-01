@@ -1,0 +1,44 @@
+/**********************************************
+
+Given a roman numeral, convert it to an integer.
+Roman numerals from I to M (1 to 1000)
+
+Topics:
+Hash Table, Math, String
+
+*********************************************/
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        
+        unordered_map<char, int> m;
+
+        //map each letter to a value
+        m['I'] = 1;
+        m['V'] = 5;
+        m['X'] = 10;
+        m['L'] = 50;
+        m['C'] = 100;
+        m['D'] = 500;
+        m['M'] = 1000;
+
+        //use highest to track cases such as IV and IX
+        int sum = 0;
+        int highest = 0;
+        for(int i = s.size()-1; i >= 0; i--){
+
+            //checks for numbers such as IV which wouldgive 6 instead of 4
+            if(m[s[i]] < highest)
+                sum -= m[s[i]];
+            
+            else{
+                
+                sum += m[s[i]];
+                highest = m[s[i]];
+            }
+        }
+        
+        return sum;
+    }
+};
