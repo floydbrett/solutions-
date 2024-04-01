@@ -1,0 +1,40 @@
+/*************************************
+
+Given a signed 32-bit integer x, return x with its digits reversed. 
+If reversing x causes the value to go outside the signed 32-bit integer 
+range [-2 ^31, 2 ^31 - 1], then return 0.
+
+Topics:
+Math
+
+***************************************/
+
+class Solution {
+public:
+    int reverse(int x) {
+        
+        bool isNeg = false;
+        int ans = 0;
+        
+        if(x < 0)
+            isNeg = true;
+        
+        while(x != 0){
+
+            //check if integer is outside of 32 bit integer range
+            if(ans > INT_MAX/10 || ans < INT_MIN/10)
+                return 0;
+            
+            //multiply ans by 10 to create a new ones space and add in the ones space from x
+            ans = ans*10;
+            ans += x%10;
+            x = x/10;
+            
+        }
+
+        //return reversed integer
+        return ans;
+        
+        
+    }
+};
