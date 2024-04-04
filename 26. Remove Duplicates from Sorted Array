@@ -1,0 +1,38 @@
+/***************************************************
+
+Given an integer array nums sorted in non-decreasing order, 
+remove the duplicates in-place such that each unique element appears only once. 
+
+The relative order of the elements should be kept the same. 
+
+Then return the number of unique elements in nums.
+
+Topics:
+Array
+
+***************************************************/
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+
+        //used to count the number of duplicates
+        int count = 0;
+
+        //array is sorted so we can work backwards and check if an element is the same as its previous neighbor
+        //if two elements are the same we make the current i equal to 101 since values are stated to not go higher than 100
+        for(int i = 0; i < nums.size()-1; i++){
+
+            if(nums[i] == nums[i+1]){
+                count++;
+                nums[i] = 101;
+            }
+        }
+
+        //sort array at the end to push all values of 101 to the end
+        sort(nums.begin(), nums.end());
+
+        //return the size of the array minus the duplicates
+        return nums.size() - count;
+    }
+};
