@@ -1,0 +1,42 @@
+/******************************************************
+
+Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums.
+
+You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.
+
+Topics:
+Array, Cycle Sort
+
+*****************************************************/
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        
+        int n = nums.size();
+
+        int i = 0;
+
+        //cycle sort is used to place positive elements (that are smaller than n to avoid overflow) at their index
+        // i.e. if the sort encounters 1 it will place it at position 1, 2 at position 2, 3 at 3, etc.
+        while(i < n){
+
+            //check if value is positive and smaller than the size of n, also check if that element is already in the correct position to improve runtime
+            if(nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i]-1]){
+                swap(nums[i], nums[nums[i]-1]);
+            } else{
+                i++;
+            }
+        }
+
+        //iterate through array and return first missing positive if it exists
+        for(int i = 0; i < n; i++){
+            if(nums[i] != i+1)
+                return i+1;
+        }
+
+        //if no missing positives smallest missing will be the next positive which is n+1
+        return n+1;
+        
+    }
+};
