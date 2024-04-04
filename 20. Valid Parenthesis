@@ -1,0 +1,42 @@
+/*****************************************************
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+ 1. Open brackets must be closed by the same type of brackets.
+ 2. Open brackets must be closed in the correct order.
+ 3. Every close bracket has a corresponding open bracket of the same type.
+
+
+Topics:
+String, Stack
+
+****************************************************/
+
+class Solution {
+public:
+    bool isValid(string s) {
+
+        //valid string will have parenthesis open and close in a correct order so stack is useful
+        stack<char> stack;
+
+       //iterate through entire string adding opening parenthesis to stack and checking for matches when a closing parenthesis is encountered
+       //if matching parenthesis is not found then string is invalid and we return false
+	    for(int i = 0; i < s.length(); i++){
+		
+		    if(s[i] == '(' || s[i] == '{' || s[i] == '[') 
+          stack.push(s[i]);
+		    else{
+			    if(stack.empty() || (stack.top() == '(' && s[i] != ')') || (stack.top() == '{' && s[i] != '}') || (stack.top() == '[' && s[i] != ']')) 
+            return false;
+			    stack.pop();
+		    }
+	    }
+
+      //if there are no remaining open parenthesis after the string has been checked, the string is valid
+      //if there are remaining parenthesis then it is invalid so we can just return if stack is empty
+	    return stack.empty();
+        
+        
+    }
+};
